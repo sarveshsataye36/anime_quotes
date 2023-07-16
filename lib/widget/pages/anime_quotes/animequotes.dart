@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AnimeQuotes extends StatelessWidget {
+class AnimeQuotes extends StatelessWidget{
   const AnimeQuotes({super.key});
 
   @override

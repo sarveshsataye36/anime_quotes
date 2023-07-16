@@ -1,7 +1,8 @@
 import 'dart:async';
-
+import 'package:anime_quotes/widget/sidebar/bloc/navigation_bloc.dart';
 import 'package:anime_quotes/widget/sidebar/menu_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SideBar extends StatefulWidget {
@@ -11,18 +12,21 @@ class SideBar extends StatefulWidget {
   State<SideBar> createState() => _SideBarState();
 }
 
-class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<SideBar>{
-  late StreamController<bool> isSidebarOpenedStreamController; // adding late modifier
+class _SideBarState extends State<SideBar>
+    with SingleTickerProviderStateMixin<SideBar> {
+  late StreamController<bool>
+      isSidebarOpenedStreamController; // adding late modifier
   late AnimationController _animationController; // adding late modifier
   late Stream<bool> isSidebarOpenedStream;
   late StreamSink<bool> isSidebarOpenedSink;
-  final _animationDuration = const Duration(milliseconds: 500);
+  final _animationDuration = const Duration(milliseconds: 400);
   var openOrClose;
 
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(vsync: this,duration: _animationDuration);
+    _animationController =
+        AnimationController(vsync: this, duration: _animationDuration);
     isSidebarOpenedStreamController = PublishSubject<bool>();
     isSidebarOpenedStream = isSidebarOpenedStreamController.stream;
     isSidebarOpenedSink = isSidebarOpenedStreamController.sink;
@@ -36,32 +40,33 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
     super.dispose();
   }
 
-  void onIconPressed(){
+  void onIconPressed() {
     final animationStatus = _animationController.status;
     final isAnimationCompleted = animationStatus == AnimationStatus.completed;
 
-    if(isAnimationCompleted){
+    if (isAnimationCompleted) {
       isSidebarOpenedSink.add(false);
       _animationController.reverse();
-    }else{
+    } else {
       isSidebarOpenedSink.add(true);
       _animationController.forward();
     }
   }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     return StreamBuilder<bool>(
       initialData: false,
       stream: isSidebarOpenedStream,
-      builder: (context,AsyncSnapshot<bool> isSideBarOpenedAsync){
-        if(isSideBarOpenedAsync.hasData){
-          if(isSideBarOpenedAsync.data == null){
+      builder: (context, AsyncSnapshot<bool> isSideBarOpenedAsync) {
+        if (isSideBarOpenedAsync.hasData) {
+          if (isSideBarOpenedAsync.data == null) {
             openOrClose = false;
-          }else{
+          } else {
             openOrClose = isSideBarOpenedAsync.data;
           }
-        }else{
+        } else {
           openOrClose = false;
         }
 
@@ -70,7 +75,9 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
           top: 0,
           bottom: 0,
           left: openOrClose ? 0 : -screenWidth,
-          right: openOrClose ? 0 : screenWidth - 45, // 45 gives right width when close
+          right: openOrClose
+              ? 0
+              : screenWidth - 45, // 45 gives right width when close
           child: Row(
             children: <Widget>[
               Expanded(
@@ -78,7 +85,9 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                   color: Colors.deepPurple[900],
                   child: Column(
                     children: <Widget>[
-                      SizedBox(height: 50,),
+                      SizedBox(
+                        height: 50,
+                      ),
                       ListTile(
                         title: Text(
                           "Anime Quotes",
@@ -103,9 +112,33 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                         indent: 32,
                         endIndent: 32,
                       ),
-                      MenuItem(title: 'Random Quotes' ,icon: Icons.circle_outlined),
-                      MenuItem(title: 'Anime Quotes' ,icon: Icons.circle_outlined),
-                      MenuItem(title: 'Character Quotes' ,icon: Icons.circle_outlined),
+                      MenuItem(
+                        title: 'Random Quotes',
+                        icon: Icons.circle_outlined,
+                        onTapFunction: () {
+                          onIconPressed();
+                          BlocProvider.of<NavigationBloc>(context)
+                              .add(RandomQuotesClickedEvent());
+                        },
+                      ),
+                      MenuItem(
+                        title: 'Anime Quotes',
+                        icon: Icons.circle_outlined,
+                        onTapFunction: () {
+                          onIconPressed();
+                          BlocProvider.of<NavigationBloc>(context).add(
+                              AnimeNameQuotesClickedEvent());
+                        },
+                      ),
+                      MenuItem(
+                        title: 'Character Quotes',
+                        icon: Icons.circle_outlined,
+                        onTapFunction: () {
+                          onIconPressed();
+                          BlocProvider.of<NavigationBloc>(context).add(
+                              CharacterQuotesClickedEvent());
+                        },
+                      ),
                       Divider(
                         height: 20,
                         thickness: 0.5,
@@ -113,9 +146,27 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
                         indent: 32,
                         endIndent: 32,
                       ),
-                      MenuItem(title: 'Share', icon: Icons.share),
-                      MenuItem(title: 'Rate', icon: Icons.star_rate),
-                      MenuItem(title: 'Exit', icon: Icons.logout),
+                      MenuItem(
+                        title: 'Share',
+                        icon: Icons.share,
+                        onTapFunction: () {
+                          onIconPressed();
+                        },
+                      ),
+                      MenuItem(
+                        title: 'Rate',
+                        icon: Icons.star_rate,
+                        onTapFunction: () {
+                          onIconPressed();
+                        },
+                      ),
+                      MenuItem(
+                        title: 'Exit',
+                        icon: Icons.logout,
+                        onTapFunction: () {
+                          onIconPressed();
+                        },
+                      ),
                     ],
                   ),
                 ),
@@ -123,7 +174,7 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
               Align(
                 alignment: Alignment(0, -0.9),
                 child: GestureDetector(
-                  onTap: (){
+                  onTap: () {
                     onIconPressed();
                   },
                   child: ClipPath(
@@ -150,9 +201,10 @@ class _SideBarState extends State<SideBar> with SingleTickerProviderStateMixin<S
     );
   }
 }
+
 class CustomMenuClipper extends CustomClipper<Path> {
   @override
-  Path getClip(Size size){
+  Path getClip(Size size) {
     Paint paint = Paint();
     paint.color = Colors.white;
     final width = size.width;
@@ -161,7 +213,7 @@ class CustomMenuClipper extends CustomClipper<Path> {
     Path path = Path();
     path.moveTo(0, 0);
     path.quadraticBezierTo(0, 8, 10, 16);
-    path.quadraticBezierTo(width-1, height / 2 - 20, width, height/2);
+    path.quadraticBezierTo(width - 1, height / 2 - 20, width, height / 2);
     path.quadraticBezierTo(width + 1, height / 2 + 20, 10, height - 16);
     path.quadraticBezierTo(0, height - 8, 0, height);
     path.close();
