@@ -10,3 +10,5 @@ class RandomQuotesClickedState extends NavigationState {}
 class CharacterQuotesClickedState extends NavigationState {}
 
 class AnimeNameQuotesClickedState extends NavigationState {}
+
+class AnimeCharacterImageClickedState extends NavigationState {}

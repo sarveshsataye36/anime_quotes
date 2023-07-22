@@ -14,5 +14,8 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
     on<AnimeNameQuotesClickedEvent>((event, emit) {
       emit(AnimeNameQuotesClickedState());
     });
+    on<AnimeCharacterImageClickedEvent>((event, emit) {
+      emit(AnimeCharacterImageClickedState());
+    });
   }
 }

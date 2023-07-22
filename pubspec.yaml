@@ -31,6 +31,11 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.3
+  http: ^1.1.0
+  loading_animation_widget: ^1.2.0+4
+  image_downloader:
+    git:
+      url: https://github.com/ko2ic/image_downloader
 
 
   # The following adds the Cupertino Icons font to your application.

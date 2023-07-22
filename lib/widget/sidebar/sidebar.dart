@@ -139,6 +139,15 @@ class _SideBarState extends State<SideBar>
                               CharacterQuotesClickedEvent());
                         },
                       ),
+                      MenuItem(
+                        title: 'Character Images',
+                        icon: Icons.circle_outlined,
+                        onTapFunction: () {
+                          onIconPressed();
+                          BlocProvider.of<NavigationBloc>(context).add(
+                              AnimeCharacterImageClickedEvent());
+                        },
+                      ),
                       Divider(
                         height: 20,
                         thickness: 0.5,

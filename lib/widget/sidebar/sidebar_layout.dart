@@ -1,6 +1,7 @@
-import '../sidebar/bloc/navigation_bloc.dart';
 import 'package:anime_quotes/widget/sidebar/sidebar.dart';
 import 'package:flutter/material.dart';
+import '../pages/anime_character/character_image.dart';
+import '../sidebar/bloc/navigation_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../pages/anime_quotes/animequotes.dart';
 import '../pages/random_quotes/randomquotes.dart';
@@ -19,13 +20,15 @@ class SidebarLayout extends StatelessWidget {
             BlocBuilder<NavigationBloc, NavigationState>(
                 builder: (context, state) {
                   if (state is NavigationInitial) {
-                    return RandomQuotes();
+                      return CharacterQuotes();
                   }else if(state is RandomQuotesClickedState){
                     return RandomQuotes();
                   }else if(state is CharacterQuotesClickedState){
                     return CharacterQuotes();
                   }else if(state is AnimeNameQuotesClickedState){
                     return AnimeQuotes();
+                  }else if(state is AnimeCharacterImageClickedState){
+                    return CharacterImage();
                   }else{
                     return RandomQuotes();
                   }
