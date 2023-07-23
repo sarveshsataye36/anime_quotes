@@ -60,12 +60,11 @@ class _CharacterImageState extends State<CharacterImage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Container(
-            child: Image.network(
-              "$urli",
-              fit: BoxFit.contain,
-              width: MediaQuery.of(context).size.width,
-            ),
+          Image.network(
+            "$urli",
+            fit: BoxFit.contain,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height / 1.4,
           ),
 
           Column(

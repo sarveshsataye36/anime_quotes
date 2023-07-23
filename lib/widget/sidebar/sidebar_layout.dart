@@ -15,12 +15,13 @@ class SidebarLayout extends StatelessWidget {
     return BlocProvider<NavigationBloc>(
       create: (context) => NavigationBloc(),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Stack(
           children: <Widget>[
             BlocBuilder<NavigationBloc, NavigationState>(
                 builder: (context, state) {
                   if (state is NavigationInitial) {
-                      return RandomQuotes();
+                      return CharacterImage();
                   }else if(state is RandomQuotesClickedState){
                     return RandomQuotes();
                   }else if(state is CharacterQuotesClickedState){

@@ -87,7 +87,7 @@ class _SideBarState extends State<SideBar>
                   child: Column(
                     children: <Widget>[
                       SizedBox(
-                        height: 40,
+                        height: 17,
                       ),
                       Padding(
                         padding:  EdgeInsets.fromLTRB(32, 10, 10, 10),
@@ -116,7 +116,7 @@ class _SideBarState extends State<SideBar>
                         ),
                       ),
                       Divider(
-                        height: 50,
+                        height: 30,
                         thickness: 0.5,
                         color: Colors.white.withOpacity(0.3),
                         indent: 32,
@@ -159,7 +159,7 @@ class _SideBarState extends State<SideBar>
                         },
                       ),
                       Divider(
-                        height: 20,
+                        height: 30,
                         thickness: 0.5,
                         color: Colors.white.withOpacity(0.3),
                         indent: 32,
