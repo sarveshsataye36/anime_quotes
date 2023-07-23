@@ -87,27 +87,36 @@ class _SideBarState extends State<SideBar>
                   child: Column(
                     children: <Widget>[
                       SizedBox(
-                        height: 50,
+                        height: 40,
                       ),
-                      ListTile(
-                        title: Text(
-                          "Anime Quotes",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                        leading: CircleAvatar(
-                          child: Icon(
-                            Icons.perm_identity,
-                            color: Colors.white,
-                          ),
-                          radius: 40.0,
+                      Padding(
+                        padding:  EdgeInsets.fromLTRB(32, 10, 10, 10),
+                        child: Row(
+                          children: <Widget>[
+                            CircleAvatar(
+                              backgroundColor: Colors.white,
+                              radius: 42.0,
+                              child: CircleAvatar(
+                                backgroundImage: AssetImage('assets/images/ninja.jpg'),
+                                radius: 40.0,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              "Anime Quotes",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 30,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       Divider(
-                        height: 64,
+                        height: 50,
                         thickness: 0.5,
                         color: Colors.white.withOpacity(0.3),
                         indent: 32,
