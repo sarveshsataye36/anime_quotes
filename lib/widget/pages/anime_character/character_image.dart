@@ -4,6 +4,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../api/anime_pic.dart';
 import 'package:image_downloader/image_downloader.dart';
 import 'dart:math';
+import '../../../api/share_api.dart';
 class CharacterImage extends StatefulWidget {
   const CharacterImage({super.key});
 
@@ -55,7 +56,7 @@ class _CharacterImageState extends State<CharacterImage> {
   Widget build(BuildContext context) {
 
     if(isLoading){
-      return Padding(padding: EdgeInsets.all(15),
+      return Padding(padding: EdgeInsets.fromLTRB(20, 15, 15, 15),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -77,7 +78,9 @@ class _CharacterImageState extends State<CharacterImage> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   GestureDetector(
-                    onTap: (){},
+                    onTap: (){
+                      ShareContents().shareContent(urli);
+                    },
                     child: CircleAvatar(
                       backgroundColor: Colors.blue,
                       radius: 31.0,
@@ -143,13 +146,20 @@ class _CharacterImageState extends State<CharacterImage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-          Center(
-          child: LoadingAnimationWidget.flickr(
-            size: 60,
-            leftDotColor: Colors.purple,
-            rightDotColor: Colors.blue,
-          ),
-      ),
+              Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: 300,
+                  ),
+                  Center(
+                    child: LoadingAnimationWidget.flickr(
+                      size: 60,
+                      leftDotColor: Colors.purple,
+                      rightDotColor: Colors.blue,
+                    ),
+                  ),
+                ],
+              ),
               Column(
                   children: <Widget>[
                     Divider(
@@ -160,7 +170,9 @@ class _CharacterImageState extends State<CharacterImage> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: <Widget>[
                         GestureDetector(
-                          onTap: (){},
+                          onTap: (){
+                            ShareContents().shareContent(urli);
+                          },
                           child: CircleAvatar(
                             backgroundColor: Colors.blue,
                             radius: 31.0,

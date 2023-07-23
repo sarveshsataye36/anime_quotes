@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-
+import '../../../api/share_api.dart';
 import '../../../api/character_anime_quotes_api.dart';
 
 class CharacterQuotes extends StatefulWidget {
@@ -13,6 +13,9 @@ class CharacterQuotes extends StatefulWidget {
 class _CharacterQuotesState extends State<CharacterQuotes> {
   Map<String, dynamic>? quotes;
   Map<String, dynamic>? animepic;
+  String quoteDetails = '';
+  String animeDetails = '';
+  String characterDetails = '';
   bool isLoading = false;
   var searchText = 'luffy';
   // defining text controller
@@ -36,6 +39,9 @@ class _CharacterQuotesState extends State<CharacterQuotes> {
     if(quotes != null){
       setState(() {
         isLoading = true;
+        quoteDetails = quotes!['quote'];
+        animeDetails = quotes!['anime'];
+        characterDetails = quotes!['character'];
       });
     }
   }
@@ -78,7 +84,7 @@ class _CharacterQuotesState extends State<CharacterQuotes> {
                           getData(searchController.text);
                         }else{
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text("Empty text...try to search anime name"),
+                            content: Text("Empty text...try to search character name"),
                           ));
                         }
                       }, icon: Icon(Icons.search)),
@@ -92,7 +98,7 @@ class _CharacterQuotesState extends State<CharacterQuotes> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children:<Widget>[
                       Text(
-                        quotes?['quote'],
+                        quoteDetails,
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 20.0,
@@ -112,13 +118,15 @@ class _CharacterQuotesState extends State<CharacterQuotes> {
                             SizedBox(
                               width: 10,
                             ),
-                            Text(
-                              quotes?['character'],
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 20.0,
-                                  fontFamily: 'Roboto',
-                                  color: Colors.purple[800]
+                            Flexible(
+                              child: Text(
+                                characterDetails,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 20.0,
+                                    fontFamily: 'Roboto',
+                                    color: Colors.purple[800]
+                                ),
                               ),
                             ),
                           ]
@@ -135,13 +143,15 @@ class _CharacterQuotesState extends State<CharacterQuotes> {
                             SizedBox(
                               width: 10,
                             ),
-                            Text(
-                              quotes?['anime'],
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 20.0,
-                                  fontFamily: 'Roboto',
-                                  color: Colors.purple[800]
+                            Flexible(
+                              child: Text(
+                                animeDetails,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 20.0,
+                                    fontFamily: 'Roboto',
+                                    color: Colors.purple[800]
+                                ),
                               ),
                             ),
                           ]
@@ -163,7 +173,9 @@ class _CharacterQuotesState extends State<CharacterQuotes> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     GestureDetector(
-                      onTap: (){},
+                      onTap: (){
+                        ShareContents().shareContent(quoteDetails + '\n' + '- $characterDetails' + '\n' + '- $animeDetails');
+                      },
                       child: CircleAvatar(
                         backgroundColor: Colors.blue,
                         radius: 31.0,

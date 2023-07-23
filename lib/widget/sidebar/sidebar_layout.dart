@@ -20,7 +20,7 @@ class SidebarLayout extends StatelessWidget {
             BlocBuilder<NavigationBloc, NavigationState>(
                 builder: (context, state) {
                   if (state is NavigationInitial) {
-                      return CharacterQuotes();
+                      return CharacterImage();
                   }else if(state is RandomQuotesClickedState){
                     return RandomQuotes();
                   }else if(state is CharacterQuotesClickedState){

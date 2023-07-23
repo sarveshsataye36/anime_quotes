@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../api/random_api.dart';
+import '../../../api/share_api.dart';
 
 class RandomQuotes extends StatefulWidget {
   const RandomQuotes({super.key});
@@ -12,7 +13,9 @@ class RandomQuotes extends StatefulWidget {
 class _RandomQuotesState extends State<RandomQuotes> {
   Map<String, dynamic>? quotes;
   bool isLoading = false;
-
+  String quoteDetails = '';
+  String animeDetails = '';
+  String characterDetails = '';
   @override
   void initState() {
     getData();
@@ -23,6 +26,9 @@ class _RandomQuotesState extends State<RandomQuotes> {
     if(quotes != null){
       setState(() {
         isLoading = true;
+        quoteDetails = quotes!['quote'];
+        animeDetails = quotes!['anime'];
+        characterDetails = quotes!['character'];
       });
     }
    }
@@ -45,7 +51,7 @@ class _RandomQuotesState extends State<RandomQuotes> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children:<Widget>[
                       Text(
-                        quotes!['quote'],
+                        quoteDetails,
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 20.0,
@@ -65,13 +71,15 @@ class _RandomQuotesState extends State<RandomQuotes> {
                             SizedBox(
                               width: 10,
                             ),
-                            Text(
-                              quotes!['character'],
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 20.0,
-                                fontFamily: 'Roboto',
-                                color: Colors.purple[800]
+                            Flexible(
+                              child: Text(
+                                characterDetails,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 20.0,
+                                  fontFamily: 'Roboto',
+                                  color: Colors.purple[800]
+                                ),
                               ),
                             ),
                           ]
@@ -88,13 +96,15 @@ class _RandomQuotesState extends State<RandomQuotes> {
                             SizedBox(
                               width: 10,
                             ),
-                            Text(
-                              quotes!['anime'],
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 20.0,
-                                fontFamily: 'Roboto',
-                                  color: Colors.purple[800]
+                            Flexible(
+                              child: Text(
+                                animeDetails,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 20.0,
+                                  fontFamily: 'Roboto',
+                                    color: Colors.purple[800]
+                                ),
                               ),
                             ),
                           ]
@@ -113,7 +123,9 @@ class _RandomQuotesState extends State<RandomQuotes> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     GestureDetector(
-                      onTap: (){},
+                      onTap: (){
+                        ShareContents().shareContent(quoteDetails + '\n' + '- $characterDetails' + '\n' + '- $animeDetails');
+                      },
                       child: CircleAvatar(
                         backgroundColor: Colors.blue,
                         radius: 31.0,

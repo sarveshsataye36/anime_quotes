@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../api/character_anime_quotes_api.dart';
+import '../../../api/share_api.dart';
 
 class AnimeQuotes extends StatefulWidget{
   const AnimeQuotes({super.key});
@@ -12,6 +13,9 @@ class AnimeQuotes extends StatefulWidget{
 class _AnimeQuotesState extends State<AnimeQuotes> {
   Map<String, dynamic>? quotes;
   Map<String, dynamic>? animepic;
+  String quoteDetails = '';
+  String animeDetails = '';
+  String characterDetails = '';
   bool isLoading = false;
   var searchText = 'one piece';
   // defining text controller
@@ -35,6 +39,9 @@ class _AnimeQuotesState extends State<AnimeQuotes> {
     if(quotes != null){
       setState(() {
         isLoading = true;
+        quoteDetails = quotes!['quote'];
+        animeDetails = quotes!['anime'];
+        characterDetails = quotes!['character'];
       });
     }
   }
@@ -92,7 +99,7 @@ class _AnimeQuotesState extends State<AnimeQuotes> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children:<Widget>[
                       Text(
-                        quotes?['quote'],
+                        quoteDetails,
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 20.0,
@@ -112,13 +119,15 @@ class _AnimeQuotesState extends State<AnimeQuotes> {
                             SizedBox(
                               width: 10,
                             ),
-                            Text(
-                              quotes?['character'],
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 20.0,
-                                fontFamily: 'Roboto',
-                                  color: Colors.purple[800]
+                            Flexible(
+                              child: Text(
+                                characterDetails,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 20.0,
+                                  fontFamily: 'Roboto',
+                                    color: Colors.purple[800]
+                                ),
                               ),
                             ),
                           ]
@@ -135,13 +144,15 @@ class _AnimeQuotesState extends State<AnimeQuotes> {
                             SizedBox(
                               width: 10,
                             ),
-                            Text(
-                              quotes?['anime'],
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 20.0,
-                                  fontFamily: 'Roboto',
-                                  color: Colors.purple[800]
+                            Flexible(
+                              child: Text(
+                                animeDetails,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 20.0,
+                                    fontFamily: 'Roboto',
+                                    color: Colors.purple[800]
+                                ),
                               ),
                             ),
                           ]
@@ -163,7 +174,9 @@ class _AnimeQuotesState extends State<AnimeQuotes> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     GestureDetector(
-                      onTap: (){},
+                      onTap: (){
+                        ShareContents().shareContent(quoteDetails + '\n' + '- $characterDetails' + '\n' + '- $animeDetails');
+                      },
                       child: CircleAvatar(
                         backgroundColor: Colors.blue,
                         radius: 31.0,
