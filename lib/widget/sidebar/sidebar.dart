@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:anime_quotes/widget/sidebar/bloc/navigation_bloc.dart';
 import 'package:anime_quotes/widget/sidebar/menu_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -173,6 +174,7 @@ class _SideBarState extends State<SideBar>
                         title: 'Exit',
                         icon: Icons.logout,
                         onTapFunction: () {
+                          SystemNavigator.pop();
                           onIconPressed();
                         },
                       ),
