@@ -1,16 +1,11 @@
 # anime_quotes
 
-A new Flutter project.
+A new Flutter project with advance and beautifull UI and UX.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Anime Quotes and image flutter app made with bloc structure. You can customize it if you want. In this app we use api calls for quotes and image.
 
-A few resources to get you started if this is your first Flutter project:
+For Quotes : https://animechan.xyz/ api is use huge thanks for the quotes api with 10000+ quotes.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+For AnimeImages  :  https://waifu.pics/ api is use huge thanks for the images .
